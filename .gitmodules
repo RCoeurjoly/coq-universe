@@ -77,3 +77,6 @@
 	path = tarjan
 	url = https://github.com/Alizter/tarjan.git
   branch = dune
+[submodule "VST"]
+	path = VST
+	url = git@github.com:PrincetonUniversity/VST.git

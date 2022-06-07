@@ -50,4 +50,4 @@ jobs:
     - uses: cachix/install-nix-action@v17
 
     - name: Build with nix
-      run: nix shell nixpkgs#opam -c opam init && eval $(opam env) && make install-opam-deps && make submodules && make universe
+      run: nix shell nixpkgs#opam -c opam init && eval $(opam env --switch=default) && make install-opam-deps && make submodules && make universe

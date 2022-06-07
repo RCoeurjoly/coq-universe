@@ -5,44 +5,44 @@ on:
   push:
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - macos-latest
-          - ubuntu-latest
-        ocaml-compiler:
-          - ocaml-variants.4.14.0+options,ocaml-option-flambda
-        include:
-          - os: windows-latest
-            ocaml-compiler: 4.14
+  # build:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       os:
+  #         - macos-latest
+  #         - ubuntu-latest
+  #       ocaml-compiler:
+  #         - ocaml-variants.4.14.0+options,ocaml-option-flambda
+  #       include:
+  #         - os: windows-latest
+  #           ocaml-compiler: 4.14
 
-    runs-on: ${{ matrix.os }}
+  #   runs-on: ${{ matrix.os }}
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: 🐪 Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v2
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: false
-          opam-depext: true
+  #     - name: 🐪 Use OCaml ${{ matrix.ocaml-compiler }}
+  #       uses: ocaml/setup-ocaml@v2
+  #       with:
+  #         ocaml-compiler: ${{ matrix.ocaml-compiler }}
+  #         dune-cache: false
+  #         opam-depext: true
 
-      - name: 🐐 Install GMP
-        if: matrix.os == 'windows-latest'
-        run: opam depext conf-gmp
+  #     - name: 🐐 Install GMP
+  #       if: matrix.os == 'windows-latest'
+  #       run: opam depext conf-gmp
 
-      - name: Install 🔍 ocamlfind, 💤 zarith and 🗿 menhir
-        run: make install-opam-deps
+  #     - name: Install 🔍 ocamlfind, 💤 zarith and 🗿 menhir
+  #       run: make install-opam-deps
 
-      - name: 🧱 Fetch submodules
-        run: make submodules
+  #     - name: 🧱 Fetch submodules
+  #       run: make submodules
 
-      - name: 🌌 Coq Universe
-        run: opam exec -- make universe DUNEOPT=""
+  #     - name: 🌌 Coq Universe
+  #       run: opam exec -- make universe DUNEOPT=""
   nix:
     runs-on: ubuntu-latest
     steps:
